@@ -9,7 +9,7 @@ First, the Frota lineshape yields an accurate description of the Kondo resonance
 ```math
 A(\omega) = A_0 \, {\rm Re} \left[ e^{i\phi} \sqrt{\frac{i\Delta_{\rm K}}{\omega+i\Delta_{\rm K}}} \right] 
 ```
-where $A_0$ is the amplitude of the Kondo resonance and $\Delta_{\rm K}$ is the Frota width parameter
+where $A_0$ is the amplitude of the Kondo resonance, $\phi\in[0,2\pi]$ is the Fano phase and $\Delta_{\rm K}$ is the Frota width parameter
 which yields the halfwidth of the Kondo resonance as $\Gamma_{\rm K}=2.542\Delta_{\rm K}$.
 When Fermi-Dirac smearing at the STM tip can be neglected ($T\rightarrow0$), the measured differential conductance ($dI/dV$) is directly proportional to $A(\omega$):
 $\mathcal{G}(V) = dI/dV \propto A(eV)$.
