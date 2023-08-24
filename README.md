@@ -1,5 +1,9 @@
 # HurwitzFanoFit
-Python program for fitting Hurwitz-Fano lineshapes to experimental data
+Python program for fitting Hurwitz-Fano lineshapes to experimental data. 
+
+The Hurwitz-Fano lineshape describes a Kondo resonance in the differential conductance in the presence of Fermi-Dirac smearing at finite temperature of the STM tip [1].  
+
+When the Python program has been used for data processing in a scientific publication, we ask the authors of that publication to cite Ref. 1.
 
 ## Theoretical background
 The python script can be used to fit different lineshapes that occur in the theory of STM spectroscopy (STS) of Kondo systems to STS data.
@@ -19,7 +23,7 @@ $\mathcal{G}(V) = dI/dV \propto A(eV)$.
 ### Hurwitz-Fano lineshape
 Usually, smearing of the Fermi surface due to finite temperature $T$ at the STM tip cannot be neglected. 
 In this case the lineshape of the Kondo resoance in the $dI/dV$ is given by a convolution with the derivative of the Fermi-Dirac distribution.
-As was shown recently by us [1] the resulting lineshape can be described in terms of a Hurwitz $\zeta$-function:
+As we recently showed by us the resulting lineshape can be described in terms of a Hurwitz $\zeta$-function [1]:
 ```math
 \mathcal{G}(V) = \frac{dI}{dV} \propto \int d\omega \, \left(-f^\prime(\omega)\right) \, A(\omega+eV) =
 A_0 \, \sqrt{\frac{\beta \Delta_{\rm K}}{8\pi} } \,{\rm Re} \left[
@@ -36,11 +40,11 @@ defined by the infinite series:
 The Riemann $\zeta$-function is recovered for $a=1$.
 
 ### Lock-in modulation
-The effect of lock-modulation on the spectra in the STS experiment can be taken into account by an additional numerical convolution:
+The effect of lock-modulation on the spectra in the STS experiment can be taken into account by an additional numerical convolution [5]:
 ```math
 \tilde{\mathcal{G}}(V) = \int dV^\prime \, \chi_{\rm LI}(V^\prime) \, \mathcal{G}(V+V^\prime)
 ```
-where the lock-in function $\chi_{\rm LI}$ is given by
+where $\mathcal{G}(V)$ is given either by the Frota-Fano or the Hurwitz-Fano lineshape, and the lock-in function $\chi_{\rm LI}$ is given by
 ```math
 \chi_{\rm LI}(V) = \left\{ \begin{array}{cc} \frac{2\sqrt{2V_{\rm rms}^2 -V^2}}{\pi V_{\rm rms}^2} & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
  0 & \mbox{ for } |V| > \sqrt2 V_{\rm rms} \end{array} \right.
@@ -55,3 +59,10 @@ where the lock-in function $\chi_{\rm LI}$ is given by
 ### Windows
 
 ### MacOS
+
+## References
+[1] Our paper  
+[2] Papers on Frota lineshape  
+[3] Papers on Hurwitz $\zeta$-function  
+[4] Reference for Euler-Maclaurin formula  
+[5] Paper by Gruber et al.  
