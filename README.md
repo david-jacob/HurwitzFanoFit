@@ -65,13 +65,13 @@ The program can be run by typing in a linux shell:
 ```code
 python hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]
 ```
-where
-* `<fname>`	: file name of text file containing data
-* `<col>`	: column number (starting at zero) of measured $dI/dV$ data
-* `<temp>`	: temperature $T$ in Kelvin 
-* `<func>`	: 
-* `[Vrms]`
-* `[show]`
+where  
+`<fname>`	: file name of text file containing data  
+`<col>`		: column number (starting at zero) of measured $dI/dV$ data  
+`<temp>`	: temperature $T$ in Kelvin  
+`<func>`	:   
+`[Vrms]`  
+`[show]`  
 
 ### Windows
 
