@@ -5,7 +5,9 @@ Python program for fitting Hurwitz-Fano lineshapes to experimental data
 The python script can be used to fit different lineshapes that occur in the theory of STM spectroscopy (STS) of Kondo systems to STS data.
 
 ### Frota-Fano lineshape
-First, the Frota lineshape yields an accurate description of the Kondo resonance in the spectral function of a Kondo system.
+First, the Frota lineshape yields an accurate description of the Kondo resonance in the spectral function of a Kondo system. 
+Taking into account quantum interference by a Fano phase factor $\phi$, the Kondo resonance can be well described by the
+following Frota-Fano lineshape:
 ```math
 A(\omega) = A_0 \, {\rm Re} \left[ e^{i\phi} \sqrt{\frac{i\Delta_{\rm K}}{\omega+i\Delta_{\rm K}}} \right] 
 ```
@@ -24,7 +26,9 @@ A_0 \, \sqrt{\frac{\beta \Delta_{\rm K}}{8\pi} } \,{\rm Re} \left[
     e^{i\phi} \zeta\left( \frac{3}{2}, \frac{\beta\Delta_{\rm K}}{2\pi} + \frac{1}{2} +i\frac{\beta eV}{2\pi} \right) 
 \right]
 ```
-where $\beta=1/kT$ the inverse temperature, and $\zeta(s,a)$ is the Hurwitz $\zeta$-function, a generalization of the Riemann $\zeta$-function,
+where $\beta=1/kT$ the inverse temperature, $\Delta_{\rm K}$ is the Frota width parameter of the *underlying* Frota lineshape in the spectral function $A(\omega)$,
+and $\phi$ the Fano phase factor describing quantum interference.
+$\zeta(s,a)$ is the Hurwitz $\zeta$-function, a generalization of the Riemann $\zeta$-function,
 defined by the infinite series:
 ```math
 \zeta(s,a) = \sum_{n=0}^{\infty} \frac{1}{(n+a)^s}
@@ -32,6 +36,7 @@ defined by the infinite series:
 The Riemann $\zeta$-function is recovered for $a=1$.
 
 ### Lock-in modulation
+The effect of lock-modulation on the spectra in the STS experiment can be taken into account by a numerical convolution
 
 ## Installation
 
