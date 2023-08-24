@@ -36,7 +36,15 @@ defined by the infinite series:
 The Riemann $\zeta$-function is recovered for $a=1$.
 
 ### Lock-in modulation
-The effect of lock-modulation on the spectra in the STS experiment can be taken into account by a numerical convolution
+The effect of lock-modulation on the spectra in the STS experiment can be taken into account by an additional numerical convolution:
+```math
+\tilde{\mathcal{G}}(V) = \int dV^\prime \, \chi_{\rm LI}(V^\prime) \, \mathcal{G}(V+V^\prime)
+```
+where the lock-in modulation $\chi_{\rm LI}$ is given by
+```math
+\chi_{\rm LI}(V) = \left\{ \begin{array}{cc} 2\sqrt{2V_{\rm rms}^2 -V^2}/\pi V_{\rm rms}^2 & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
+ 0 & \mbox{ for } |V| > \sqrt2 V_{\rm rms} \end{array} \right.
+```
 
 ## Installation
 
