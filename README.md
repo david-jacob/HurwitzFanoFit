@@ -40,9 +40,9 @@ The effect of lock-modulation on the spectra in the STS experiment can be taken 
 ```math
 \tilde{\mathcal{G}}(V) = \int dV^\prime \, \chi_{\rm LI}(V^\prime) \, \mathcal{G}(V+V^\prime)
 ```
-where the lock-in modulation $\chi_{\rm LI}$ is given by
+where the lock-in function $\chi_{\rm LI}$ is given by
 ```math
-\chi_{\rm LI}(V) = \left\{ \begin{array}{cc} 2\sqrt{2V_{\rm rms}^2 -V^2}/\pi V_{\rm rms}^2 & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
+\chi_{\rm LI}(V) = \left\{ \begin{array}{cc} \frac{2\sqrt{2V_{\rm rms}^2 -V^2}}{\pi V_{\rm rms}^2} & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
  0 & \mbox{ for } |V| > \sqrt2 V_{\rm rms} \end{array} \right.
 ```
 
