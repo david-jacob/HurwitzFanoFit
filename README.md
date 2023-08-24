@@ -51,10 +51,27 @@ where $\mathcal{G}(V)$ is given either by the Frota-Fano or the Hurwitz-Fano lin
 ```
 
 ## Installation
+The Python program can be installed by simply downloading the Python script `hurwitzfit.py` from GitHub.
+## System requirements
+Python3 is required and the following Python packages:
+* `numpy`
+* `scipy`
+* `matplotlib`
 
 ## Program usage
 
 ### Linux
+The program can be run by typing in a linux shell:
+```code
+python hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]
+```
+where
+* `<fname>`	: file name of text file containing data
+* `<col>`	: column number (starting at zero) of measured $dI/dV$ data
+* `<temp>`	: temperature $T$ in Kelvin 
+* `<func>`	: 
+* `[Vrms]`
+* `[show]`
 
 ### Windows
 
