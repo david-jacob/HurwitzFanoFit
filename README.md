@@ -3,7 +3,7 @@ Python program for fitting Hurwitz-Fano lineshapes to experimental data.
 
 The Hurwitz-Fano lineshape describes a Kondo resonance in the differential conductance in the presence of Fermi-Dirac smearing at finite temperature of the STM tip [1].  
 
-When the Python program has been used for data processing in a scientific publication, we ask the authors of that publication to cite Ref. 1.
+When the program is used for processing of data in a scientific publication, we ask the authors to acknowledge the use of the program and to cite Ref. 1 in that publication.
 
 ## Theoretical background
 The python script can be used to fit different lineshapes that occur in the theory of STM spectroscopy (STS) of Kondo systems to STS data.
@@ -66,16 +66,25 @@ The program can be run by typing in a linux shell:
 python hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]
 ```
 where  
-`<fname>`	: file name of text file containing data  
-`<col>`		: column number (starting at zero) of measured $dI/dV$ data  
-`<temp>`	: temperature $T$ in Kelvin  
-`<func>`	:   
-`[Vrms]`  
-`[show]`  
+* `<fname>`	: file name of text file containing data  
+* `<col>`	: column number (starting at zero) of measured $dI/dV$ data  
+* `<temp>`	: temperature $T$ in Kelvin  
+* `<func>`	: which lineshape to use: 'frota' or 'hurwitz' 
+* `[Vrms]`	: *optional*, root-mean-square bias of lock-in modulation in mV
+* `[show]`	: *optional*, whether to show the fit together with the data using matplotlib
 
 ### Windows
+Put here how to run the program in a Windows environment.
 
 ### MacOS
+Put here how to run the program in a MacOS environment.
+
+## Example
+Tp fit the hurwitz*lock-in lineshape to the example $dI/dV$ spectrum in `example,dat` we type in a linux shell:
+```code
+python hurwitzfit.py example.dat 2 2.0 'hurwitz' 0.4 'show'
+```
+Remark: the $dI/dV$ is given in the third column, which is column #2 in python
 
 ## References
 [1] Our paper  
