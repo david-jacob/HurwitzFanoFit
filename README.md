@@ -15,7 +15,7 @@ When Fermi-Dirac smearing at the STM tip can be neglected ($T\rightarrow0$), the
 $\mathcal{G}(V) = dI/dV \propto A(eV)$.
 
 ### Hurwitz-Fano lineshape
-Usually, smearing of the Fermi surface due to finite temperature at the STM tip cannot be neglected. 
+Usually, smearing of the Fermi surface due to finite temperature $T$ at the STM tip cannot be neglected. 
 In this case the lineshape of the Kondo resoance in the $dI/dV$ is given by a convolution with the derivative of the Fermi-Dirac distribution.
 As was shown recently by us [1] the resulting lineshape can be described in terms of a Hurwitz $\zeta$-function:
 ```math
@@ -24,6 +24,12 @@ A_0 \, \sqrt{\frac{\beta \Delta_{\rm K}}{8\pi} } \,{\rm Re} \left[
     e^{i\phi} \zeta\left( \frac{3}{2}, \frac{\beta\Delta_{\rm K}}{2\pi} + \frac{1}{2} +i\frac{\beta eV}{2\pi} \right) 
 \right]
 ```
+where $\beta=1/kT$ the inverse temperature, and $\zeta(s,a)$ is the Hurwitz $\zeta$-function, a generalization of the Riemann $\zeta$-function,
+defined by the infinite series:
+```math
+\zeta(s,a) = \sum_{n=0}^{\infty} \frac{1}{(n+a)^s}
+```
+The Riemann $\zeta$-function is recovered for $a=1$.
 
 ### Lock-in modulation
 
