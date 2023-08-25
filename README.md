@@ -83,11 +83,51 @@ Put here how to run the program in a Windows environment.
 Put here how to run the program in a MacOS environment.
 
 ## Example
-To fit the hurwitz lineshape to the example $dI/dV$ spectrum in `example,dat` we type in the linux shell:
+To fit the hurwitz lineshape to the example $dI/dV$ spectrum in `example.dat` for $T=2$K we type in the linux shell:
 ```code
-python hurwitzfit.py example.dat 2 2.0 --show
+python hurwitzfit.py example.dat 3 2.0 --show
 ```
-Remark: the $dI/dV$ in `example.dat` is given in the third column, which is column #2 in python.
+Remark: the $dI/dV$ in `example.dat` is given in the third column.
+The program output is:
+```code
+
+**************************************************************
+***                                                        ***
+***      hurwitzfit.py - fit to Hurwitz-Fano lineshape     ***
+***                                                        ***
+***  (c) 2023 by David Jacob, Universidad del Pais Vasco   ***
+***                                                        ***
+**************************************************************
+
+
+*** Fitting Hurwitz-Fano lineshape to dI/dV data ***
+
+ Data file:  example.dat
+ dI/dV data in col # 3
+ T =  2.0 K
+
+ Number of data points:  400
+
+*** Fit converged ***
+
+ Elapsed time:  0.7936155796051025 s.
+
+ Fit parameters:
+ V0 =  0.17168125017870547
+ A0 =  0.3344426146992541
+ DeltaK =  1.1282716057883746
+ phi =  0.0735022246256897
+ a = -0.000584955470243615
+ b = 0.14654382853439216
+
+ GammaK =  2.868066421914048
+
+ Writing temperature and all fit parameters to  optparams.dat
+ Writing temperature and GammaK to  GammaK_vs_temp.dat
+ Write fitted lineshape and dI/dV data to  hf_example.dat
+
+Done.
+```
 
 ## References
 [1] Our paper  
