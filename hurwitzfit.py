@@ -107,7 +107,7 @@ print()
 
 if len(sys.argv[1:]) < 4 :
 	print( "Missing arguments.", file=sys.stderr )
-	print( "Usage: hurwitzfit.py <fname> <col> <temp> <func> [Vrms]", file=sys.stderr )
+	print( "Usage: hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]", file=sys.stderr )
 	print( "  <fname> : name of data file (string)" )
 	print( "  <col>   : column for dI/dV in data file (0, 1, 2, ...)" )
 	print( "  <temp>  : tip temperature in K (real number)" )
@@ -125,7 +125,8 @@ func_name = sys.argv[4]
 w_lockin = False
 if len(sys.argv[1:]) >= 5 :
 	Vrms = float(sys.argv[5])
-	w_lockin = True
+	if abs(Vrms)>1e-6:
+		w_lockin = True
 
 show_plot = False
 if len(sys.argv[1:]) >= 6 :
