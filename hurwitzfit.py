@@ -13,7 +13,7 @@ import sys
 import os
 import time
 
-from math import sqrt, pi
+from math import sqrt, pi,nan,isnan
 from cmath import exp
 from cmath import sqrt as csqrt
 
@@ -23,6 +23,9 @@ import scipy.integrate as integrate
 from scipy.special import bernoulli, poch
 from math import factorial
 import matplotlib.pyplot as plt
+
+INFTY = 1e+100
+sum_acc = 1e-6
 
 # ----------------------------------------
 # Class implementing Hurwitz zeta-function
@@ -43,7 +46,7 @@ class hurwitz_zeta:
 		sum -= 0.5/(a+n)**s
 		for kk in range(1,r//2):
 			add = poch(2*kk-2+s,2*kk-1)*self.B[2*kk]/(factorial(2*kk)*(a+n)**(2*kk-1+s))
-			if( abs(add/sum) < 1e-6 ): break
+			if( abs(add/sum) < sum_acc ): break
 			sum += add
 		return sum
 	
@@ -93,70 +96,94 @@ def fit_func( V, V0, A0, DeltaK, phi, a, b ):
 	return vec_func( V-V0, A0, DeltaK, phi )+a*V+b
 
 
-### MAIN PROGRAM ###
+######################################
+###                                ###
+###          MAIN PROGRAM          ###
+###                                ###
+######################################
 
 print()
 print( "**************************************************************" )
 print( "***                                                        ***" )
-print( "***    hurwitzfit.py - fit to Hurwitz / Frota lineshape    ***" ) 
+print( "***      hurwitzfit.py - fit to Hurwitz-Fano lineshape     ***" ) 
 print( "***                                                        ***" )
 print( "***  (c) 2023 by David Jacob, Universidad del Pais Vasco   ***" )
 print( "***                                                        ***" )
 print( "**************************************************************" )
 print()
 
-if len(sys.argv[1:]) < 4 :
+if len(sys.argv[1:]) < 3 :
 	print( "Missing arguments.", file=sys.stderr )
-	print( "Usage: hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]", file=sys.stderr )
-	print( "  <fname> : name of data file (string)" )
-	print( "  <col>   : column for dI/dV in data file (0, 1, 2, ...)" )
-	print( "  <temp>  : tip temperature in K (real number)" )
-	print( "  <func>  : lineshape to fit (string) - 'hurwitz' or 'frota'" )
-	print( "  [Vrms]  : root-mean-square bias of lock-in modulation in mV (float) [optional]" )
-	print( "  [show]  : whether to show plot after fit [optional]." )
+	print( "Usage: hurwitzfit.py <fname> <col> <temp> <func> [OPTIONS]", file=sys.stderr )
+	print( "Mandatory arguments:", file=sys.stderr )
+	print( "  <fname> : name of data file (string)", file=sys.stderr )
+	print( "  <col>   : column number (starting at 1) for dI/dV in data file.", file=sys.stderr )
+	print( "  <temp>  : tip temperature in K (real number)", file=sys.stderr )
+	print( "Optional arguments:", file=sys.stderr )
+	print( "  --frota          : Use Frota-Fano lineshape instead of Hurwitz-Fano.", file=sys.stderr )
+	print( "  --lock-in=<Vrms> : Take into account lock-in modulation by numerical convolution.", file=sys.stderr )
+	print( "                     <Vrms> is the root-mean-square bias of LI modulation in mV (float).", file=sys.stderr )
+	print( "  --range=V1,V2    : Bias range for fitting with data: V1<=V<=V2.", file=sys.stderr )
+	print( "                     If not specfied the entire data range will be used.", file=sys.stderr )
+	print( "  --show           : whether to show plot after fit (uses matplotlib).", file=sys.stderr )
 	print()
 	exit(-1)
 
 fname_full = sys.argv[1]
 ncol = int(sys.argv[2])
 T_str = sys.argv[3]
-func_name = sys.argv[4]
 
 w_lockin = False
-if len(sys.argv[1:]) >= 5 :
-	Vrms = float(sys.argv[5])
-	if abs(Vrms)>1e-6:
-		w_lockin = True
-
 show_plot = False
-if len(sys.argv[1:]) >= 6 :
-	if sys.argv[6] == 'show': show_plot = True
+use_frota = False
+V1 = None
+V2 = None
+
+# Iterate through remaining list of arguments
+# to find optional arguments
+for arg in sys.argv[4:]:
+	#print( arg )
+	if arg == '--frota':
+		use_frota = True
+	elif arg[0:10] == '--lock-in=':
+		w_lockin = True
+		Vrms = float(arg[10:])
+	elif arg[0:8] == '--range=':
+		V1,V2 = tuple(float(x) for x in arg[8:].split(","))
+	elif arg == '--show':
+		show_plot = True
+	else:
+		print( "Unknown option: ", arg, " Abort.", file=sys.stderr )
+		exit(-1)
 		   
-if func_name == "hurwitz":
+if use_frota:
+	if w_lockin:
+		vec_func = np.vectorize( ff_w_lockin, excluded=['A0','DeltaK','phi'] ) 
+	else:
+		vec_func = np.vectorize( frota_fano, excluded=['A0','DeltaK','phi'] )
+else:
 	zeta = hurwitz_zeta()
-	# vectorize function for use in _curve_fit
 	if w_lockin:
 		vec_func = np.vectorize( hf_w_lockin, excluded=['A0','DeltaK','phi'] )
 	else:
 		vec_func = np.vectorize( hurwitz_fano, excluded=['A0','DeltaK','phi'] )
-elif func_name == "frota":
-	if w_lockin:
-		vec_func = np.vectorize( ff_w_lockin, excluded=['A0','DeltaK','phi'] ) 
-	else:
-		vec_func = np.vectorize( frota_fano, excluded=['A0','DeltaK','phi'] ) 
-else:
-	print( "Error: unknown function name: ", func_name, file=sys.stderr )
-	print( " Possible choices: 'frota', 'hurwitz`", file=sys.stderr )
-	exit(-1)
 
 fname = os.path.basename(fname_full)
 
 print()
-print( "*** Fitting dI/dV data to Hurwitz zeta-function ***" )
+
+if not use_frota:
+	print( "*** Fitting Hurwitz-Fano lineshape to dI/dV data ***" )
+else:
+	print( "*** Fitting Frota-Fano lineshape to dI/dV data ***" )
 print()
 print( " Data file: ", fname_full )
 print( " dI/dV data in col #", ncol )
 print( " T = ", T_str, "K" )
+if V1 is not None and V2 is not None:
+	print( " Fit range: = [", V1, ",", V2, "]" )
+if w_lockin:
+	print( " With lock-in modulation: Vrms = ", Vrms )
 print()
 
 kT = float(T_str) * 8.61732814974493E-02 # Temperature in meV
@@ -165,14 +192,30 @@ beta = 1.0/kT
 data = np.loadtxt(fname_full)
 ndata=np.size(data,0)
 print( " Number of data points: ", ndata )
-print()
 
 bias_data = np.zeros( ndata )
 dIdV_data = np.zeros( ndata )
 
-for i in range(ndata):
-	bias_data[i] = data[i][0]
-	dIdV_data[i] = data[i][ncol]
+## if fitting range is specified, only take data within that range ###
+
+if V1 is not None and V2 is not None:
+	for i in range(ndata):	
+		if data[i][0] >= V1 and data[i][0] <= V2:
+			bias_data[i] = data[i][0]
+			dIdV_data[i] = data[i][ncol-1]
+		else:
+			bias_data[i] = INFTY
+			dIdV_data[i] = INFTY
+	bias_data = np.extract(bias_data<INFTY,bias_data)
+	dIdV_data = np.extract(dIdV_data<INFTY,dIdV_data)
+	ndata = len(bias_data)
+	print( " Number of data points in fit range: ", ndata )
+else:
+	for i in range(ndata):	
+		bias_data[i] = data[i][0]
+		dIdV_data[i] = data[i][ncol-1]
+
+print()
 
 #
 # Curve fitting with initial guess and lower and upper boundaries for fit parameters
@@ -207,8 +250,8 @@ print()
 
 
 if show_plot:
-	plt.plot( bias_data, dIdV_data, 'bo' )
-	plt.plot( bias_data, fit_func( bias_data, *popt ), 'r-' )
+	plt.plot( bias_data, dIdV_data, 'o', markersize=4 )
+	plt.plot( bias_data, fit_func( bias_data, *popt ), '-', linewidth=2 )
 	plt.show()
 
 print( " Writing temperature and all fit parameters to ",  "optparams.dat" ) 
@@ -227,16 +270,17 @@ f.close()
 
 # Output file name for fitted lineshape:
 
-if func_name == 'hurwitz':
-	ofname = "hf" # Hurwitz-Fano
-else:
+if use_frota:
 	ofname = "ff" # Frota-Fano
+else:
+	ofname = "hf" # Hurwitz-Fano
+
 if w_lockin:
-	ofname = ofname + "wl" # with-lockin
+	ofname = ofname + "li" # with-lockin
 	
 ofname = ofname + "_" + fname
 	
-print( " Write fitted Hurwitz zeta-function to ",  ofname )
+print( " Write fitted lineshape and dI/dV data to ",  ofname )
 f = open( ofname, "w" )
 for i in range(ndata):
 	V = bias_data[i]
