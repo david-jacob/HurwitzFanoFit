@@ -11,7 +11,7 @@ The python script can be used to fit different lineshapes that occur in the theo
 ### Frota-Fano lineshape
 First, the Frota lineshape yields an accurate description of the Kondo resonance in the spectral function of a Kondo system. 
 Taking into account quantum interference by a Fano phase factor $\phi$, the Kondo resonance can be well described by the
-following Frota-Fano lineshape:
+following Frota-Fano lineshape [2]:
 ```math
 A(\omega) = A_0 \, {\rm Re} \left[ e^{i\phi} \sqrt{\frac{i\Delta_{\rm K}}{\omega+i\Delta_{\rm K}}} \right] 
 ```
@@ -33,11 +33,11 @@ A_0 \, \sqrt{\frac{\beta \Delta_{\rm K}}{8\pi} } \,{\rm Re} \left[
 where $\beta=1/kT$ the inverse temperature, $\Delta_{\rm K}$ is the Frota width parameter of the *underlying* Frota lineshape in the spectral function $A(\omega)$,
 and $\phi$ the Fano phase factor describing quantum interference.
 $\zeta(s,a)$ is the Hurwitz $\zeta$-function, a generalization of the Riemann $\zeta$-function,
-defined by the infinite series:
+defined by the infinite series [3]:
 ```math
 \zeta(s,a) = \sum_{n=0}^{\infty} \frac{1}{(n+a)^s}
 ```
-The Riemann $\zeta$-function is recovered for $a=1$.
+The Riemann $\zeta$-function is recovered for $a=1$. Note that the Python `scipy` and `mpmath` packages both provide implementations of the Hurwitz $\zeta$-function. However, the `scipy` implementation only allows for real arguments $s,a$, while we need $a$ to be complex. On the other hand, the `mpmath` implementation allows for complex arguments $s,a$, but is very slow, since `mpmath` makes use of arbitrary precision arithmetics. Therefore `hurwitzfit.py` has its own implementation of the Hurwitz $\zeta$-function based on the Euler-Maclaurin formula [4].
 
 ### Lock-in modulation
 The effect of lock-modulation on the spectra in the STS experiment can be taken into account by an additional numerical convolution [5]:
@@ -131,10 +131,9 @@ Done.
 This is the figure showing the fitted Hurwitz-Fano lineshape togehter with the data produced by the script (using the `--show` option ) with matplotlib:
 <p align="center"><img class="marginauto" src="Figure_hurwitz.png" width="400"></p>
 
-
 ## References
-[1] Our paper  
-[2] Papers on Frota lineshape  
-[3] Papers on Hurwitz $\zeta$-function  
-[4] Reference for Euler-Maclaurin formula  
-[5] Paper by Gruber et al.  
+[1] **Our paper**  
+[2] H. O. Frota, Phys. Rev. B **45**, 1096 (1992); R. Zitko, Phys. Rev. B **84**, 195116 (2011)  
+[3] See e.g. J. Sondow and E. W. Weisstein, "Hurwitz Zeta Function." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/HurwitzZetaFunction.html  
+[4] F. Johansson, Numerical Algorithms **69**, 253 (2015)  
+[5] M Gruber, A. Weismann and R. Berndt, J. Phys.: Condens. Matter **30**, 424001 (2018)  
