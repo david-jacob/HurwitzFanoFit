@@ -128,6 +128,9 @@ The program output is:
 
 Done.
 ```
+This is the figure showing the fitted Hurwitz-Fano lineshape togehter with the data produced by the script (using the `--show` option ) with matplotlib:
+<p align="center"><img class="marginauto" src="Figure_hurwitz.png" width="400"></p>
+
 
 ## References
 [1] Our paper  
