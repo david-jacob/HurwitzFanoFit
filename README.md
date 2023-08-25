@@ -63,15 +63,18 @@ Python3 is required and the following Python packages:
 ### Linux
 The program can be run by typing in a linux shell:
 ```code
-python hurwitzfit.py <fname> <col> <temp> <func> [Vrms] [show]
+python hurwitzfit.py <fname> <col> <temp> [OPTIONS]
 ```
-where  
+where the mandatory arguments are
 * `<fname>`	: file name of text file containing data  
-* `<col>`	: column number (starting at zero) of measured $dI/dV$ data  
+* `<col>`	: column number of measured $dI/dV$ data  
 * `<temp>`	: temperature $T$ in Kelvin  
-* `<func>`	: which lineshape to use: 'frota' or 'hurwitz' 
-* `[Vrms]`	: *optional*, root-mean-square bias of lock-in modulation in mV
-* `[show]`	: *optional*, whether to show the fit together with the data using matplotlib
+
+Optional arguments
+* `--frota`			: Use Frota-Fano lineshape instead of Hurwitz-Fano.
+* `--lock-in=Vrms`	: Take into account lock-in modulation. <Vrms> is the root-mean-square bias of the lock-in.
+* `--show`			: Show the fit together with the data using matplotlib
+* `--range=V1,V2`   : Bias range for fitting with data: V1<=V<=V2. If not specfied the entire data range will be used.
 
 ### Windows
 Put here how to run the program in a Windows environment.
@@ -80,11 +83,11 @@ Put here how to run the program in a Windows environment.
 Put here how to run the program in a MacOS environment.
 
 ## Example
-To fit the hurwitz lineshape to the example $dI/dV$ spectrum in `example,dat` we type in a linux shell:
+To fit the hurwitz lineshape to the example $dI/dV$ spectrum in `example,dat` we type in the linux shell:
 ```code
-python hurwitzfit.py example.dat 2 2.0 hurwitz 0 show
+python hurwitzfit.py example.dat 2 2.0 --show
 ```
-Remark: the $dI/dV$ is given in the third column, which is column #2 in python
+Remark: the $dI/dV$ in `example.dat` is given in the third column, which is column #2 in python.
 
 ## References
 [1] Our paper  
