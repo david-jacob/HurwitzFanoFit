@@ -80,9 +80,9 @@ Put here how to run the program in a Windows environment.
 Put here how to run the program in a MacOS environment.
 
 ## Example
-Tp fit the hurwitz*lock-in lineshape to the example $dI/dV$ spectrum in `example,dat` we type in a linux shell:
+To fit the hurwitz lineshape to the example $dI/dV$ spectrum in `example,dat` we type in a linux shell:
 ```code
-python hurwitzfit.py example.dat 2 2.0 'hurwitz' 0.4 'show'
+python hurwitzfit.py example.dat 2 2.0 hurwitz 0 show
 ```
 Remark: the $dI/dV$ is given in the third column, which is column #2 in python
 
