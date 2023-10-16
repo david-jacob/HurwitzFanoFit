@@ -1,4 +1,4 @@
-# Python program `hurwitzfit.py`
+# Python program - hurwitzfit.py
 Python program for fitting Hurwitz-Fano lineshapes to experimental data. 
 
 ## Installation
