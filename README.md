@@ -54,7 +54,8 @@ The above described fit procedure to Hurwitz/Frota-Fano and Hurwitz/Frota-Fano*L
 The resepcteve computer codes, descriptions and examples can be found in the respective subdirectories `Python` and `Igor`.
 
 ## References
-[1] **Our paper**  
+[1] E. Turco, M. Aapro, S. C. Ganguli, N. Krane, R. Drost, N. Sobrino, A. Bernhardt, M. Juríček, R. Fasel, P. Ruffieux, P. Liljeroth, D. Jacob, 
+"Accurate Kondo temperature determination of spin-1/2 magnetic impurities" (2023)   
 [2] H. O. Frota, Phys. Rev. B **45**, 1096 (1992); R. Zitko, Phys. Rev. B **84**, 195116 (2011)  
 [3] See e.g. J. Sondow and E. W. Weisstein, "Hurwitz Zeta Function." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/HurwitzZetaFunction.html  
 [4] F. Johansson, Numerical Algorithms **69**, 253 (2015)  
