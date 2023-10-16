@@ -49,6 +49,9 @@ where $\mathcal{G}(V)$ is given either by the Frota-Fano or the Hurwitz-Fano lin
 \chi_{\rm LI}(V) = \left\{ \begin{array}{cc} \frac{2\sqrt{2V_{\rm rms}^2 -V^2}}{\pi V_{\rm rms}^2} & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
  0 & \mbox{ for } |V| > \sqrt2 V_{\rm rms} \end{array} \right.
 ```
+## Computer codes
+The above described fit procedure to Hurwitz/Frota-Fano and Hurwitz/Frota-Fano*Lock-in has been implemented in the Python and in Igor languages. 
+The resepcteve computer codes, descriptions and examples can be found in the respective subdirectories `Python` and `Igor`.
 
 ## References
 [1] **Our paper**  
