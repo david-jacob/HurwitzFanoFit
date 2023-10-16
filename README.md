@@ -1,5 +1,5 @@
 # HurwitzFanoFit
-Python program for fitting Hurwitz-Fano lineshapes to experimental data. 
+Python and Igor programs for fitting Hurwitz-Fano lineshapes to experimental data. 
 
 The Hurwitz-Fano lineshape describes a Kondo resonance in the differential conductance in the presence of Fermi-Dirac smearing at finite temperature of the STM tip [1].  
 
