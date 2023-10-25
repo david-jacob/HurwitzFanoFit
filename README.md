@@ -46,7 +46,7 @@ The effect of lock-modulation on the spectra in the STS experiment can be taken 
 ```
 where $\mathcal{G}(V)$ is given either by the Frota-Fano or the Hurwitz-Fano lineshape, and the lock-in function $\chi_{\rm LI}$ is given by
 ```math
-\chi_{\rm LI}(V) = \left\{ \begin{array}{cc} \frac{2\sqrt{2V_{\rm rms}^2 -V^2}}{\pi V_{\rm rms}^2} & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
+\chi_{\rm LI}(V) = \left\{ \begin{array}{cc} \frac{\sqrt{2V_{\rm rms}^2 -V^2}}{\pi V_{\rm rms}^2} & \mbox{ for } |V|\le \sqrt2 V_{\rm rms} \\
  0 & \mbox{ for } |V| > \sqrt2 V_{\rm rms} \end{array} \right.
 ```
 ## Computer codes
