@@ -75,7 +75,7 @@ End
 
 
 // Return y-value of Hurwitz-Fano lineshape at given x-value and Temperature T
-// as described by Eq. (3) in E. Turco et al. (arXiv:TBA)
+// as described by Eq. (3) in E. Turco et al. (arXiv:2310.09326)
 // The Hurwitz-Fano (or Sobrino) lineshape corresponds to a Frota-Fano lineshape
 // broadened by Fermi-Dirac smearing 
 Function HurwitzFanoLineshape(xi,HWHM,Phi,T)
@@ -134,15 +134,15 @@ End
 Function HurwitzLockinFit(pw, yw, xw) : FitFunc
 	Wave pw, yw, xw
 	
-	// pw[0] = x0		x-offset
-	// pw[1] = gam		HWHM of FrotaFunction	
-	// pw[2] = phi		Fano-Phase in units of pi
-	// pw[3] = A		Amplitude of Peak
-	// pw[4] = yoff		y-offset
-	// pw[5] = slope	background slope
-	// pw[6] = T		Temperature
-	// pw[7] = Vmod		modulation amplitude of LockIn
-	// pw[8] = dX		point density for convolution (e.g. 10E-6 V)
+	// pw[0] = x_offset		x-offset
+	// pw[1] = HWHM			HWHM of FrotaFunction	
+	// pw[2] = Phi			Fano-Phase
+	// pw[3] = Amplitude	Amplitude of Peak
+	// pw[4] = y_offset		y-offset
+	// pw[5] = slope		background slope
+	// pw[6] = T			Temperature
+	// pw[7] = Vmod			modulation amplitude of LockIn
+	// pw[8] = dX			point density for convolution (e.g. 10E-6 V)
 	
 
 	Variable Vmod=abs(pw[7])
@@ -181,7 +181,7 @@ End
 
 // Fit Function for temperature-dependence of intrinsic Kondo halfwidth Γ(T)
 // according to Eq. (10) from David Jacob (arXiv:2306.13136)
-// or Eq. (1) form E. Turco et al. (arXiv: TBA) 
+// or Eq. (1) form E. Turco et al. (arXiv:2310.09326) 
 // using Wilson's Definition of TK: Δ_0 = 1.542*TK*kB and Γ_0 = 3.920*TK*kB
 //
 // TK: Wilson’s thermodynamic definition of the Kondo temperature [1], corrected by Wiegman and Tsvelick [2]
@@ -211,7 +211,7 @@ End
 // Return intrinsic Kondo halfwidth "Γ" (aka "HWHM")
 // for a Kondo system with Kondo temperature "TK" at finite temperature "T"
 // according to Eq. (10) from David Jacob (arXiv:2306.13136)
-// or Eq. (1) from E. Turco (arXiv: TBA) 
+// or Eq. (1) from E. Turco (arXiv:2310.09326) 
 // using Wilson's definition of TK: Δ_0 = 1.542*TK*kB and Γ_0 = 3.920*TK*kB
 //
 // TK: Wilson’s thermodynamic definition of the Kondo temperature [1], corrected by Wiegman and Tsvelick [2]
@@ -236,7 +236,7 @@ End
 // Return Kondo temperature "TK"
 // for a Kondo system with intrinsic Kondo halfwidth "Γ" (aka "HWHM")
 // and experimental temperature "T"
-// according to Eq. (5) from E. Turco et al. (arXiv:TBA) 
+// according to Eq. (5) from E. Turco et al. (arXiv:2310.09326) 
 // using Wilson's definition of TK: Δ_0 = 1.542*TK*kB and Γ_0 = 3.920*TK*kB
 //
 // TK: Wilson’s thermodynamic definition of the Kondo temperature [1], corrected by Wiegman and Tsvelick [2]
