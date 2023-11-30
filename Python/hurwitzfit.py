@@ -76,20 +76,28 @@ def frota_fano( V, A0, DeltaK, phi ):
 
 # lock-in modulation function
 def Xi_mod( V ):
-	if abs(V) < np.sqrt(2)*Vrms:
+	if abs(V) < Vm:
 		return np.sqrt(2*Vrms**2-V**2)/pi/Vrms**2
 	return 0.0
 
 # Convolution of Frota-Fano with lockin modulation
 def ff_w_lockin( V, A0, DeltaK, phi ):
 	integr = lambda Vp, A0, DeltaK, phi, V : Xi_mod(Vp) * frota_fano( V+Vp, A0, DeltaK, phi )
-	conv, _ = integrate.quad(integr, -np.inf, np.inf, args=(A0,DeltaK,phi,V))
+	# Changed Nov-30, 2023:
+	# - Use Gaussian quadrature to speed-up convolution;
+	# - also larger default tolerance (eps=1e-4) speeds-up integral considerably while still accurate enough
+	#conv, _ = integrate.quad(integr, -Vm, Vm, args=(A0,DeltaK,phi,V))
+	conv, _ = integrate.quadrature(integr, -Vm, Vm, args=(A0,DeltaK,phi,V), vec_func=False, tol=eps, rtol=eps)
 	return conv
 
 # Convolution of Hurwitz-Fano with lockin modulation
 def hf_w_lockin( V, A0, DeltaK, phi ):
 	integr = lambda Vp, A0, DeltaK, phi, V : Xi_mod(Vp) * hurwitz_fano( V+Vp, A0, DeltaK, phi )
-	conv, _ = integrate.quad(integr, -np.inf, np.inf, args=(A0,DeltaK,phi,V))
+	# Changed Nov-30, 2023:
+	# - Use Gaussian quadrature to speed-up convolution;
+	# - also larger default tolerance (eps=1e-4) speeds-up integral considerably while still accurate enough
+	#conv, _ = integrate.quad(integr, Vm, Vm, args=(A0,DeltaK,phi,V))
+	conv, _ = integrate.quadrature(integr, -Vm, Vm, args=(A0,DeltaK,phi,V), vec_func=False, tol=eps, rtol=eps)
 	return conv
 
 def fit_func( V, V0, A0, DeltaK, phi, a, b ):
@@ -114,7 +122,7 @@ print()
 
 if len(sys.argv[1:]) < 3 :
 	print( "Missing arguments.", file=sys.stderr )
-	print( "Usage: hurwitzfit.py <fname> <col> <temp> <func> [OPTIONS]", file=sys.stderr )
+	print( "Usage: hurwitzfit.py <fname> <col> <temp> [OPTIONS]", file=sys.stderr )
 	print( "Mandatory arguments:", file=sys.stderr )
 	print( "  <fname> : name of data file (string)", file=sys.stderr )
 	print( "  <col>   : column number (starting at 1) for dI/dV in data file.", file=sys.stderr )
@@ -126,6 +134,8 @@ if len(sys.argv[1:]) < 3 :
 	print( "  --range=V1,V2    : Bias range for fitting with data: V1<=V<=V2.", file=sys.stderr )
 	print( "                     If not specfied the entire data range will be used.", file=sys.stderr )
 	print( "  --show           : whether to show plot after fit (uses matplotlib).", file=sys.stderr )
+	print( "  --acc=<eps>      : Set accuracy for evalutaion of convolution integral to <eps>.", file=sys.stderr )
+	print( "                     Default value (eps=1e-4) is usually accurate enough.", file=sys.stderr )
 	print()
 	exit(-1)
 
@@ -138,6 +148,12 @@ show_plot = False
 use_frota = False
 V1 = None
 V2 = None
+
+# NEW Nov-30:
+# - Default tolerance for convolution integral:
+#   can be much larger than the default values of quadrature routines (1.49e-8)
+# - With this value convilution is much faster (by a factor of 25) but still accurate enough 
+eps = 1e-4
 
 # Iterate through remaining list of arguments
 # to find optional arguments
@@ -152,6 +168,8 @@ for arg in sys.argv[4:]:
 		V1,V2 = tuple(float(x) for x in arg[8:].split(","))
 	elif arg == '--show':
 		show_plot = True
+	elif arg[0:6] == '--acc=':
+		eps = float(arg[6:])
 	else:
 		print( "Unknown option: ", arg, " Abort.", file=sys.stderr )
 		exit(-1)
@@ -184,6 +202,7 @@ if V1 is not None and V2 is not None:
 	print( " Fit range: = [", V1, ",", V2, "]" )
 if w_lockin:
 	print( " With lock-in modulation: Vrms = ", Vrms )
+	Vm = np.sqrt(2)*Vrms
 print()
 
 kT = float(T_str) * 8.61732814974493E-02 # Temperature in meV
