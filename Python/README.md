@@ -26,6 +26,8 @@ Optional arguments
 * `--lock-in=Vrms`	: Take into account lock-in modulation. <Vrms> is the root-mean-square bias of the lock-in.
 * `--show`			: Show the fit together with the data using matplotlib
 * `--range=V1,V2`   : Bias range for fitting with data: V1<=V<=V2. If not specfied the entire data range will be used.
+* `--acc=<eps>`  : 	Set accuracy for evalutaion of convolution integral to <eps>. Default value (eps=1e-4) is usually accurate enough.
+
 
 ### Windows
 Put here how to run the program in a Windows environment.
