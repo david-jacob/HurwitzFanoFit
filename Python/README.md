@@ -17,17 +17,19 @@ The program can be run by typing in a linux shell:
 python hurwitzfit.py <fname> <col> <temp> [OPTIONS]
 ```
 where the mandatory arguments are
-* `<fname>`	: file name of text file containing data  
+* `<fname>`	: file name of text file containing data; expects the bias to be given in mV.
 * `<col>`	: column number of measured $dI/dV$ data  
 * `<temp>`	: temperature $T$ in Kelvin  
 
 Optional arguments
 * `--frota`			: Use Frota-Fano lineshape instead of Hurwitz-Fano.
-* `--lock-in=Vrms`	: Take into account lock-in modulation. <Vrms> is the root-mean-square bias of the lock-in.
+* `--lock-in=Vrms`	: Take into account lock-in modulation. <Vrms> is the root-mean-square bias of the lock-in (in mV).
 * `--show`			: Show the fit together with the data using matplotlib
 * `--range=V1,V2`   : Bias range for fitting with data: V1<=V<=V2. If not specfied the entire data range will be used.
 * `--acc=<eps>`  : 	Set accuracy for evalutaion of convolution integral to <eps>. Default value (eps=1e-4) is usually accurate enough.
 
+### Remark on units
+In principle the program expects the bias voltage in the $dI/dV$ data file to be given in *mV*. But the program can also be used with other units for the bias, for example in V. However, in this case the temperature needs to be given in units of $10^3$K instead of K in order to be consistent.
 
 ### Windows
 Put here how to run the program in a Windows environment.
