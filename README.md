@@ -51,7 +51,7 @@ where $\mathcal{G}(V)$ is given either by the Frota-Fano or the Hurwitz-Fano lin
 ```
 ## Computer codes
 The above described fit procedure to Hurwitz/Frota-Fano and Hurwitz/Frota-Fano*Lock-in has been implemented in the Python and in Igor languages. 
-The resepcteve computer codes, descriptions and examples can be found in the respective subdirectories `Python` and `Igor`.
+The respective computer codes, descriptions and examples can be found in the subdirectories `Python` and `Igor`.
 
 ## References
 [1] E. Turco, M. Aapro, S. C. Ganguli, N. Krane, R. Drost, N. Sobrino, A. Bernhardt, M. Juríček, R. Fasel, P. Ruffieux, P. Liljeroth, D. Jacob, 
