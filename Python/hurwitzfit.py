@@ -124,7 +124,7 @@ if len(sys.argv[1:]) < 3 :
 	print( "Missing arguments.", file=sys.stderr )
 	print( "Usage: hurwitzfit.py <fname> <col> <temp> [OPTIONS]", file=sys.stderr )
 	print( "Mandatory arguments:", file=sys.stderr )
-	print( "  <fname> : name of data file (string)", file=sys.stderr )
+	print( "  <fname> : name of data file (string); expects the bias to be given in mV.", file=sys.stderr )
 	print( "  <col>   : column number (starting at 1) for dI/dV in data file.", file=sys.stderr )
 	print( "  <temp>  : tip temperature in K (real number)", file=sys.stderr )
 	print( "Optional arguments:", file=sys.stderr )
