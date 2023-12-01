@@ -29,7 +29,7 @@ Optional arguments
 * `--acc=<eps>`  : 	Set accuracy for evalutaion of convolution integral to <eps>. Default value (eps=1e-4) is usually accurate enough.
 
 ### Remark on units
-In principle the program expects the bias voltage in the $dI/dV$ data file to be given in *mV*. But the program can also be used with other units for the bias, for example in V. However, in this case the temperature needs to be given in units of $10^3$K instead of K in order to be consistent.
+In principle the program expects the bias voltage in the $dI/dV$ data file to be given in *mV*. But the program can also be used with other units for the bias, for example in V. However, in this case the temperature needs to be given in units of $10^3$ K instead of K in order to be consistent.
 
 ### Windows
 Put here how to run the program in a Windows environment.
