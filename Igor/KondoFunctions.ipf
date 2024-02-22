@@ -148,13 +148,12 @@ Function HurwitzLockinFit(pw, yw, xw) : FitFunc
 	Variable Vmod=abs(pw[7])
 	Variable dX=abs(pw[8])
 
-	// xw seems to be of increasing order
-	Variable xmin=xw[0]
-	Variable xrange=xw[numpnts(xw)-1]-xmin
+	Variable xmin=wavemin(xw)
+	Variable xrange=wavemax(xw)-wavemin(xw)
 
 	// Determine how many points the lockin wave needs
 	Variable VmodPnts= Vmod ? ceil(Vmod/dX) : 0	// how many points per amplitude?
-	Variable nYPnts=round(xrange/dX)+2*VmodPnts	// #points for spectrum + 2*amplitude
+	Variable nYPnts=round(abs(xrange)/dX)+2*VmodPnts	// #points for spectrum + 2*amplitude
 	Make/FREE/D/N=(nYPnts) yWave
 	SetScale/P x, xmin-VmodPnts*dX, dX, yWave
 	
